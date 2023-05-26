@@ -1,0 +1,43 @@
+syntax = "proto3";
+package scenario_control;
+
+message ScenarioInfo {
+  uint32 id = 1;
+  string data = 2;
+}
+
+message ScenarioResult {
+  ScenarioInfo info = 1;
+  string data = 2;
+}
+
+
+// Scenario Initialization message
+message ScenarioInitRequest {
+  ScenarioInfo info = 1;
+}
+
+message ScenarioInitResponse {
+  bool status = 1;
+}
+
+
+// Scenario modification message
+message ScenarioModifyRequest {
+  ScenarioInfo info = 1;
+  repeated string data = 2;
+}
+
+message ScenarioModifyResponse {
+  bool status = 1;
+}
+
+
+// Scenario termination message
+message ScenarioTerminateRequest {
+  ScenarioInfo info = 1;
+}
+
+message ScenarioTerminateResponse {
+  bool status = 1;
+}

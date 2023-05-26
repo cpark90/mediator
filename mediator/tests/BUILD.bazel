@@ -1,0 +1,20 @@
+load("@rules_python//python:defs.bzl", "py_test", "py_binary")
+load("@python_deps//:requirements.bzl", "requirement")
+
+py_test(
+    name = "proto_text_function_test",
+    srcs = ["proto_text_function_test.py"],
+    deps = [
+        "//vnv_proto/tcp:tcp_configuration_pb2",
+        "//utils",
+    ]
+)
+
+py_binary(
+    name = "proto_text_function_hand_test",
+    srcs = ["proto_text_function_hand_test.py"],
+    deps = [
+        "//vnv_proto/tcp:tcp_configuration_pb2",
+        "//utils",
+    ]
+)

@@ -1,0 +1,25 @@
+load("@rules_python//python:defs.bzl", "py_library", "py_binary")
+load("@python_deps//:requirements.bzl", "requirement")
+load("@io_bazel_rules_docker//lang:image.bzl", container_image = "app_layer")
+
+package(default_visibility = ["//visibility:public"])
+
+
+py_binary(
+    name = "carla_mosaic_bridge",
+    srcs = ["carla_mosaic_bridge.py"],
+    deps = [
+        "//mediator/carla_integration",
+        "//mediator/util:netconvert_carla",
+    ],
+    data = [
+        "//:data"
+    ]
+)
+
+container_image(
+    name = "mediator_carla_main_image",
+    base = "@mediator-carla-deploy-base//image",
+    binary = ":carla_mosaic_bridge",
+    docker_run_flags = "-it --rm --network=host --runtime=nvidia -v mosaic:/home/mosaic/shared",
+)

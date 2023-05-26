@@ -1,0 +1,70 @@
+load("@rules_python//python:defs.bzl", "py_library", "py_binary")
+load("@python_deps//:requirements.bzl", "requirement")
+
+package(default_visibility = ["//visibility:public"])
+
+
+py_library(
+    name = "carla_integration",
+    srcs = [
+        "__init__.py",
+    ],
+    deps = [
+        ":synchronization",
+        ":carla_simulation",
+        ":sumo_simulation",
+        ":constants",
+        ":bridge_helper",
+    ]
+)
+
+
+py_library(
+    name = "synchronization",
+    srcs = [
+        "synchronization.py",
+    ],
+    deps = [
+        ":constants",
+        ":bridge_helper",
+    ],
+)
+
+py_library(
+    name = "carla_simulation",
+    srcs = [
+        "carla_simulation.py",
+    ],
+    deps = [
+        ":constants",
+    ],
+)
+
+py_library(
+    name = "sumo_simulation",
+    srcs = [
+        "sumo_simulation.py",
+    ],
+    deps = [
+        ":constants",
+    ],
+)
+
+py_library(
+    name = "constants",
+    srcs = [
+        "constants.py",
+    ],
+    deps = [
+    ],
+)
+
+py_library(
+    name = "bridge_helper",
+    srcs = [
+        "bridge_helper.py",
+    ],
+    deps = [
+        ":sumo_simulation",
+    ],
+)

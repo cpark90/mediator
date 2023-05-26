@@ -1,0 +1,57 @@
+load("@rules_python//python:defs.bzl", "py_library", "py_binary")
+load("@python_deps//:requirements.bzl", "requirement")
+
+package(default_visibility = ["//visibility:public"])
+
+
+py_library(
+    name = "util",
+    srcs = [
+        "__init__.py",
+    ],
+    deps = [
+        ":netconvert_carla",
+    ]
+)
+
+
+py_library(
+    name = "netconvert_carla",
+    srcs = [
+        "netconvert_carla.py",
+    ],
+    deps = [
+        requirement("lxml"),
+    ],
+)
+
+
+py_binary(
+    name = "create_sumo_vtypes_bin",
+    srcs = [
+        "create_sumo_vtypes.py",
+    ],
+    deps = [
+        requirement("lxml"),
+    ],
+)
+
+py_binary(
+    name = "netconvert_carla_bin",
+    srcs = [
+        "netconvert_carla.py",
+    ],
+    deps = [
+        requirement("lxml"),
+    ],
+)
+
+py_binary(
+    name = "sequential_types_bin",
+    srcs = [
+        "sequential_types.py",
+    ],
+    deps = [
+        requirement("lxml"),
+    ],
+)

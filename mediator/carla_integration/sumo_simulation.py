@@ -289,6 +289,8 @@ class SumoSimulation(object):
 
         logging.info('Connection to bridge server. Host: %s Port: %s', host, port)
         traci.init(host=host, port=port)
+        
+        logging.info('Traci init')
 
         self.net = sumo_net
 
@@ -452,6 +454,7 @@ class SumoSimulation(object):
             traci.route.add("carla_route", [traci.edge.getIDList()[0]])
             self.traffic_light_manager = SumoTLManager()
             self.firstTime = False
+        
         traci.simulationStep()
         self.traffic_light_manager.tick()
         # Update data structures for the current frame.

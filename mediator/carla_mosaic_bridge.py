@@ -71,12 +71,13 @@ def main(args):
         world = carla_simulation.client.get_world()
 
     carla_simulation = CarlaSimulation(args.host, args.port, args.step_length)
+    logging.info("Carla initialize")
     # ---------------
     # sumo simulation
     # ---------------
     if args.net_file is not None:
         sumo_net=sumolib.net.readNet(args.net_file)
-        print("load net file")
+        logging.info("load net file")
     else:
         # Temporal folder to save intermediate files.
         tmpdir = tempfile.mkdtemp()
@@ -92,13 +93,14 @@ def main(args):
                                      host=args.bridge_server_host,
                                      port=args.bridge_server_port)
 
-    print("Sumo initialize")
+    logging.info("Sumo initialize")
     # ---------------
     # synchronization
     # ---------------
     synchronization = SimulationSynchronization(sumo_simulation, carla_simulation, args.tls_manager,
                                                 args.sync_vehicle_color, args.sync_vehicle_lights)
 
+    logging.info("Simulation synchronization initialize")
     # start simulation synchronization
     try:
         while True:
@@ -107,13 +109,13 @@ def main(args):
     except KeyboardInterrupt:
         logging.info('Cancelled by user.')
     except traci.exceptions.FatalTraCIError:
-        print("Socket server closed")
+        logging.info("Socket server closed")
 
     finally:
         try:
             synchronization.close()
         except:
-            print("Connection closed")
+            logging.info("Connection closed")
         if "tmpdir" in locals():
             if os.path.exists(tmpdir):
                 shutil.rmtree(tmpdir)

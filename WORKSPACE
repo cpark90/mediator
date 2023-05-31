@@ -109,6 +109,6 @@ load(
 container_pull(
     name = "mediator-carla-deploy-base",
     registry = "docker.io",
-    repository = "cpark90/sumo",
+    repository = "cpark90/carla_mediator",
     tag = "mosaic_1_16_0",
 )

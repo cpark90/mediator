@@ -465,7 +465,7 @@ class SumoSimulation(object):
         v2xMessageReceived = traci.getV2xMessage()
         if v2xMessageReceived is not None:
             for message in v2xMessageReceived:
-                print(message)
+                logging.debug(message)
 
          # Send V2x message to CARLA ambassador
         if self.sendV2xInterval == 10:

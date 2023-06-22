@@ -37,15 +37,15 @@ class CarlaSimulation(object):
                 self.client.set_timeout(5.0)
                 self.world = self.client.get_world()
             except:
-                print("reconnect carla")
+                logging.info("reconnect carla")
                 connected=False
 
             if connected:
                 logging.info('Connection to carla server. Host: %s Port: %s', host, port)
-                print("CARLA simulator connected")
+                logging.info("CARLA simulator connected")
                 break
             if maxConnectionAttempts == 0 and connected == False:
-                print("Maximum connection attempts reached and connecting to CARLA simulator failed.")
+                logging.info("Maximum connection attempts reached and connecting to CARLA simulator failed.")
                 raise RuntimeError("Can not connect CARLA server. Check whether CARLA server starts or not.")
 
         self.blueprint_library = self.world.get_blueprint_library()

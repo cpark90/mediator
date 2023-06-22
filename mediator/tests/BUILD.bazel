@@ -1,20 +1,28 @@
 load("@rules_python//python:defs.bzl", "py_test", "py_binary")
 load("@python_deps//:requirements.bzl", "requirement")
+load("@com_github_grpc_grpc//bazel:python_rules.bzl", "py_proto_library")
+
+
+py_proto_library(
+    name = "simulation_step_pb2",
+    deps = [
+        "@mosaic_proto//protos/federate:simulation_step_proto",
+    ]
+)
 
 py_test(
     name = "proto_text_function_test",
     srcs = ["proto_text_function_test.py"],
     deps = [
-        "//vnv_proto/tcp:tcp_configuration_pb2",
-        "//utils",
+        ":simulation_step_pb2",
     ]
 )
 
-py_binary(
-    name = "proto_text_function_hand_test",
-    srcs = ["proto_text_function_hand_test.py"],
+py_test(
+    name = "redis_test",
+    srcs = ["redis_test.py"],
     deps = [
-        "//vnv_proto/tcp:tcp_configuration_pb2",
-        "//utils",
+        requirement("redis"),
+        requirement("async-timeout"),
     ]
 )

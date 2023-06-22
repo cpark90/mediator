@@ -3,9 +3,7 @@
 import os
 import unittest
 
-from utils import proto_text_write, proto_text_read
-
-from vnv_proto.tcp.tcp_server_conf_pb2 import TCPServerConf
+import mosaic_proto.protos.federate.simulation_step_pb2 as simulation_step
 
 class TestCase(unittest.TestCase):
 
@@ -14,23 +12,13 @@ class TestCase(unittest.TestCase):
         self.tmp_path = os.path.join("/tmp", "test.pb.txt")
         self.sample_data = "test"
 
-    def proto_text_write(self):
-        proto_data = TCPServerConf()
-        proto_data.data = self.sample_data
-        try:
-            result = proto_text_write(self.tmp_path, proto_data)
-            self.assertTrue(result)
-        except Exception as e:
-            print(e)
+    def test_proto_text_write(self):
+        proto_data = simulation_step.SimulationStep()
+        proto_data.fedName = self.sample_data
         self.assertTrue(False)
             
 
-    def proto_text_read(self):
-        try:
-            proto_data = proto_text_read(self.tmp_path, TCPServerConf)
-            self.assertEqual(self.sample_data, proto_data.data)
-        except Exception as e:
-            print(e)
+    def test_proto_text_read(self):
         self.assertTrue(False)
 
 if __name__ == '__main__':

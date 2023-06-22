@@ -3,8 +3,11 @@ workspace(name = "mediator_carla")
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-load("//:mediator_carla_deps.bzl", "mediator_carla_deps")
+load("//bazel_scripts:mediator_carla_deps.bzl", "mediator_carla_deps")
 mediator_carla_deps()
+
+load("//bazel_scripts:mosaic_proto_rules.bzl", "mosaic_proto_rules")
+mosaic_proto_rules()
 
 
 # python

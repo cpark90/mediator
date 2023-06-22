@@ -1,8 +1,0 @@
-syntax = "proto3";
-import "vnv_proto/rpc/scenario_control_message.proto";
-
-service ScenarioControl {
-  rpc InitScenario(scenario_control.ScenarioInitRequest) returns (scenario_control.ScenarioInitResponse);
-  rpc ModifyScenario(scenario_control.ScenarioModifyRequest) returns (stream scenario_control.ScenarioModifyResponse);
-  rpc TerminateScenario(scenario_control.ScenarioTerminateRequest) returns (scenario_control.ScenarioTerminateResponse);
-}

@@ -4,4 +4,4 @@
 
 2. federates are deployed to mosaic volume
 
-3. mosaic volume mounted to /home/mosaic/shared when launching container.
+3. mosaic volume mounted to /tmp/simulationId/fedId when launching container.

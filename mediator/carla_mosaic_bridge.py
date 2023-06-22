@@ -25,7 +25,7 @@ import sys
 
 try:
     sys.path.append(
-        glob.glob('/home/mosaic/shared/carla/carla-federate/simulations/carla-*%d.%d-%s.egg' %
+        glob.glob('/tmp/mediator_carla/carla/carla-federate/simulations/carla-*%d.%d-%s.egg' %
                   (sys.version_info.major, sys.version_info.minor,
                    'win-amd64' if os.name == 'nt' else 'linux-x86_64'))[0])
 except IndexError:

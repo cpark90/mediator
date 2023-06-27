@@ -10,7 +10,7 @@ py_library(
         "__init__.py",
     ],
     deps = [
-        ":synchronization",
+        ":mediator",
         ":carla_simulation",
         ":sumo_simulation",
         ":constants",
@@ -20,11 +20,13 @@ py_library(
 
 
 py_library(
-    name = "synchronization",
+    name = "mediator",
     srcs = [
-        "synchronization.py",
+        "mediator.py",
     ],
     deps = [
+        "@ros2_common_interfaces//:py_std_msgs",
+        "@ros2_rclpy//:rclpy",
         ":constants",
         ":bridge_helper",
     ],

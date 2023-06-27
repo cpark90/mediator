@@ -19,6 +19,8 @@ portalocker==2.7.0
 pexpect==4.8.0
 ptyprocess==0.7.0
 lxml==4.9.2
+pyignite==0.6.1
+attrs==23.1.0
 redis[hiredis]==4.3.4
 wrapt==1.15.0
 hiredis==2.2.3

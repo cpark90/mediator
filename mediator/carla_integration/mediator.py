@@ -24,6 +24,12 @@ except IndexError:
     pass
 
 # ==================================================================================================
+# -- ros2 ------------------------------------------------------------------------------------------
+# ==================================================================================================
+import rclpy
+import std_msgs.msg
+
+# ==================================================================================================
 # -- find traci module -----------------------------------------------------------------------------
 # ==================================================================================================
 
@@ -55,6 +61,9 @@ class SimulationSynchronization(object):
                  tls_manager='none',
                  sync_vehicle_color=False,
                  sync_vehicle_lights=False):
+
+        rclpy.init()
+        self.node = rclpy.create_node('carla_mediator')
 
         self.sumo = sumo_simulation
         self.carla = carla_simulation
@@ -209,4 +218,6 @@ class SimulationSynchronization(object):
         # Closing sumo and carla client.
         self.carla.close()
         self.sumo.close()
+
+        self.node.destroy_node()
 

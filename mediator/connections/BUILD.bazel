@@ -1,0 +1,72 @@
+load("@rules_python//python:defs.bzl", "py_library", "py_binary")
+load("@python_deps//:requirements.bzl", "requirement")
+load("@com_github_grpc_grpc//bazel:python_rules.bzl", "py_proto_library")
+
+package(default_visibility = ["//visibility:public"])
+
+
+py_library(
+    name = "connection_base",
+    srcs = [
+        "connection_base.py",
+    ],
+    deps = [
+    ]
+)
+
+py_proto_library(
+    name = "federate_message_wrapper_pb2",
+    deps = [
+        "@mosaic_proto//protos/federate:federate_message_wrapper_proto",
+    ]
+)
+
+py_proto_library(
+    name = "mediator_status_pb2",
+    deps = [
+        "@mosaic_proto//protos/federate:mediator_status_proto",
+    ]
+)
+
+py_proto_library(
+    name = "types_pb2",
+    deps = [
+        "@mosaic_proto//protos/common:types_proto",
+    ]
+)
+
+py_library(
+    name = "connection_mosaic",
+    srcs = [
+        "connection_mosaic.py",
+    ],
+    deps = [
+        ":federate_message_wrapper_pb2",
+        ":mediator_status_pb2",
+        ":types_pb2",
+    ]
+)
+
+py_library(
+    name = "connection_federate",
+    srcs = [
+        "connection_federate.py",
+    ],
+    deps = [
+        ":federate_message_wrapper_pb2",
+        ":mediator_status_pb2",
+        ":types_pb2",
+    ]
+)
+
+
+py_library(
+    name = "connections",
+    srcs = [
+        "__init__.py",
+    ],
+    deps = [
+        ":connection_base",
+        ":connection_federate",
+    ],
+)

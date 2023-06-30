@@ -50,7 +50,7 @@ from carla_integration.constants import INVALID_ACTOR_ID  # pylint: disable=wron
 # ==================================================================================================
 
 
-class SimulationSynchronization(object):
+class Mediator(object):
     """
     SimulationSynchronization class is responsible for the synchronization of sumo and carla
     simulations.

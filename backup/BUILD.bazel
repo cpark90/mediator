@@ -6,11 +6,11 @@ package(default_visibility = ["//visibility:public"])
 
 
 py_binary(
-    name = "mediator_main",
-    srcs = ["mediator.py"],
+    name = "carla_mosaic_bridge",
+    srcs = ["carla_mosaic_bridge.py"],
     deps = [
-        "//mediator/connections",
-        "//mediator/utils:netconvert_carla",
+        "//mediator/carla_integration",
+        "//mediator/util:netconvert_carla",
     ],
     data = [
         "//:data"
@@ -20,19 +20,6 @@ py_binary(
 container_image(
     name = "mediator_carla_main_image",
     base = "@mediator-carla-deploy-base//image",
-    binary = ":mediator",
+    binary = ":carla_mosaic_bridge",
     docker_run_flags = "-it --rm --network=host --runtime=nvidia -v mosaic:/tmp/mediator_carla",
-)
-
-py_library(
-    name = "mediator",
-    srcs = [
-        "__init__.py",
-    ],
-    deps = [
-        ":common",
-        ":connections",
-        ":utils",
-        ":mediator_main",
-    ]
 )

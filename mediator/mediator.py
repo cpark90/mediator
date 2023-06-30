@@ -51,13 +51,48 @@ import traci  # pylint: disable=wrong-import-position
 from carla_integration.carla_simulation import CarlaSimulation  # pylint: disable=wrong-import-position
 from carla_integration.sumo_simulation import SumoSimulation  # pylint: disable=wrong-import-position
 
-from carla_integration.synchronization import SimulationSynchronization  # pylint: disable=wrong-import-position
+from backup.carla_integration.mediator import Mediator  # pylint: disable=wrong-import-position
 
 from util.netconvert_carla import netconvert_carla
 # ==================================================================================================
 # -- main ------------------------------------------------------------------------------------------
 # ==================================================================================================
 
+class MediatorBase(object):
+    # initialize connection to redis server, federate, mosaic / set interesting region, time advance mode / 
+    def __init__(self, args):
+        raise NotImplementedError
+    
+    def establish_connection_to_mosaic(self):
+        raise NotImplementedError
+    
+    def establish_connection_to_federate(self):
+        raise NotImplementedError
+    
+    def establish_connection_to_other_federate(self):
+        raise NotImplementedError
+    
+    def establish_connection_to_traffic_cache(self):
+        raise NotImplementedError
+    
+    # passive when stand-by phase: receive traffic update from mosaic and other federate -> local region filtering ->
+    # retrieve traffic agent from redis -> apply traffic agent to federate
+    def apply_to_federate(self):
+        raise NotImplementedError
+    
+    # passive get traffic agent from federate -> local region filtering -> apply traffic agent to traffic cache
+    def apply_to_traffic_cache(self):
+        raise NotImplementedError
+
+    # wait then lock apply_to_federate -> federate time advance -> apply_to_traffic_cache -> send to other federate and mosaic
+    def tick(self):
+        raise NotImplementedError
+    
+    def immediate_tick(self):
+        raise NotImplementedError
+
+    def cyclic_tick(self):
+        raise NotImplementedError        
 
 def main(args):
     # ----------------
@@ -97,7 +132,7 @@ def main(args):
     # ---------------
     # synchronization
     # ---------------
-    synchronization = SimulationSynchronization(sumo_simulation, carla_simulation, args.tls_manager,
+    synchronization = Mediator(sumo_simulation, carla_simulation, args.tls_manager,
                                                 args.sync_vehicle_color, args.sync_vehicle_lights)
 
     logging.info("Simulation synchronization initialize")

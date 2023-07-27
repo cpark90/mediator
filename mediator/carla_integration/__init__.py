@@ -1,5 +1,5 @@
 from .mediator import (
-    Mediator,
+    SimulationSynchronization,
 )
 
 from .carla_simulation import (

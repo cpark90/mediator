@@ -51,7 +51,7 @@ import traci  # pylint: disable=wrong-import-position
 from carla_integration.carla_simulation import CarlaSimulation  # pylint: disable=wrong-import-position
 from carla_integration.sumo_simulation import SumoSimulation  # pylint: disable=wrong-import-position
 
-from carla_integration.synchronization import SimulationSynchronization  # pylint: disable=wrong-import-position
+from carla_integration.mediator import SimulationSynchronization  # pylint: disable=wrong-import-position
 
 from util.netconvert_carla import netconvert_carla
 # ==================================================================================================
